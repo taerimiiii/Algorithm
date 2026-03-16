@@ -1,13 +1,19 @@
+import sys
+input = sys.stdin.readline
+
 n = int(input())
 
-for _ in range(n):
-    ox_list = list(input())
-    score = 0  
-    sum_score = 0
-    for ox in ox_list:
-        if ox == 'O':
-            score += 1
-            sum_score += score
-        else:
-            score = 0
-    print(sum_score)
+for _ in range(n) :
+    ox = input().strip()
+    ox_len = len(ox)
+    score = 0
+    count = 0
+
+    for i in range(ox_len) :
+        if ox[i] == "O" :
+            count += 1
+            score += count
+        else :
+            count = 0
+    
+    print(score)
