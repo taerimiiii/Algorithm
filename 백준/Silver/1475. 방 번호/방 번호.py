@@ -1,13 +1,13 @@
-word = input()
-ans = [0] * 10
-for i in range(len(word)):
-    num = int(word[i])
-    if num == 6 or num == 9:
-        if ans[6] <= ans[9]:
-            ans[6] += 1
-        else:
-            ans[9] += 1
-    else:
-        ans[num] += 1
- 
-print(max(ans))
+import sys
+input=sys.stdin.readline
+
+n = input().strip()
+
+num_list = [0] * 10
+
+for num in n :
+    num_list[int(num)] += 1
+
+num_list[6] = num_list[9] = (num_list[6] + num_list[9] + 1) // 2
+
+print(max(num_list))
