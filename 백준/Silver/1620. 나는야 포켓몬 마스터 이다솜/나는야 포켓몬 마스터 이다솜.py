@@ -1,34 +1,30 @@
 import sys
 input = sys.stdin.readline
 
-def get_num(arr_sorted, x) :
-  length = len(arr_sorted)
-  left, right = 0, length
-  mid = (left + right) // 2
-  while mid >= left :
-    if arr_sorted[mid][1] == x :
-      return arr_sorted[mid][0]
-    elif arr_sorted[mid][1] < x :
-      left = mid + 1
-    else :
-      right = mid - 1
-    mid = (left + right) // 2
-  return 0
-
-
 n, m = map(int, input().split())
-arr = [ [i+1, ''] for i in range(n)]
 
-for i in range(n) :
-  arr[i][1] = input().strip()
+# 번호로 이름을 찾기 위한 리스트 (1번 인덱스부터 사용)
+arr = [''] * (n + 1)
 
-arr_sorted = sorted(arr, key=lambda x: x[1])
+# 이름으로 번호를 찾기 위한 딕셔너리
+name_to_num = {}
 
-problems = [ input().strip() for _ in range(m)]
+for i in range(1, n + 1) :
+    name = input().strip()
+    arr[i] = name             # 인덱스(번호)에 이름 저장
+    name_to_num[name] = i     # 문자열(이름)을 Key로, 번호를 Value로 저장
 
+# 검사해야 하는 문제들 입력
+problems = [ input().strip() for _ in range(m) ]
+
+# 답 구하기
 for i in range(m) :
-  problem = problems[i]
-  if '1' <= problem <= '999999' :
-    print(arr[int(problem)-1][1])
-  else :
-    print(get_num(arr_sorted, problem))
+    problem = problems[i]
+    
+    if '1' <= problem <= '999999' :
+        # 입력이 숫자인 경우, 리스트에서 인덱스로 바로 접근
+        print(arr[int(problem)])
+
+    else :
+        # 입력이 문자인 경우, 딕셔너리에서 Key(이름)로 바로 접근
+        print(name_to_num[problem])
