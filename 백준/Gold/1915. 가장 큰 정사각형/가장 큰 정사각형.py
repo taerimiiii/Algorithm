@@ -1,37 +1,20 @@
 import sys
-input = sys.stdin.readline
-import math
+input=sys.stdin.readline
 
 n, m = map(int, input().split())
+arr = [[0] * (m+1) for _ in range(n+1)]
+for i in range(1, n+1) :
+    string = input().strip()
+    for j in range(1, m+1) :
+        arr[i][j] = int(string[j-1])
 
-arr = [[0] * m for _ in range(n)]
-
-for i in range(n) :
-    strings = input().strip()
-    for j in range(m) :
-        arr[i][j] = int(strings[j])
-
-dp = [[0] * m for _ in range(n)]
+dp = [[0] * (m+1) for _ in range(n+1)]
 
 max_val = 0
-
-# 첫 줄 처리
-dp[0][0] = arr[0][0]
-max_val = max(arr[0][0], max_val)
-
-for i in range(1, n) :
-    dp[i][0] = arr[i][0]
-    max_val = max(arr[i][0], max_val)
-
-for j in range(1, m) :
-    dp[0][j] = arr[0][j]
-    max_val = max(arr[0][j], max_val)
-
-# dp
-for i in range(1, n) :
-    for j in range(1, m) :
+for i in range(1, n+1) :
+    for j in range(1, m+1) :
         if arr[i][j] == 1 :
             dp[i][j] = min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]) + 1
             max_val = max(max_val, dp[i][j])
 
-print(max_val * max_val)
+print(max_val ** 2)
